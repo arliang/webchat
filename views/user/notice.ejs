@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title><%=user.name%> - Vchat</title>
+
+
+	<link rel="stylesheet" type="text/css" href="/public/css/common.css"/>
+	<link rel="stylesheet" type="text/css" href="/public/css/personal.css"/>
+
+	<% 
+		var pageName = "notice";
+			status = status || "unread";
+
+	 %>
+
+	 <script type="text/javascript">
+	 var notices = <%- JSON.stringify(notices) %>
+	 </script>
+
+</head>
+<body>
+
+	<!-- top {user:{user}} -->
+	<% include ../common/top.ejs %>
+
+	
+	<div class="wrap">
+		<div class="main">
+			<div class="main-inner">
+				<div class="main-header">
+					<h1>通知</h1>
+				</div>	
+
+				<div class="main-content">
+					
+					<div class="notice">
+						<div class="header">
+							<% if( status =="unread" ){ %>
+							<div class="btn-group">
+								<span class="btn btn-white clicked">未读</span>
+								<a href="/user/notice?status=read" class="btn btn-white">已读</a>
+							</div>
+							<% }else{ %>
+							<div class="btn-group">
+								<a href="/user/notice?status=unread" class="btn btn-white">未读</a>
+								<span class="btn btn-white clicked">已读</span>
+							</div>
+							<% } %>
+						</div>
+						<div class="content">
+							<ul>
+
+								<%
+									var item = null;
+									for(var i=0; i<notices.length; i++){
+										item = notices[i];
+
+								%>
+								<li>
+									<a target="_blank" class="name" href="/user/<%=item.from._id %>"><%=item.from.name %></a> 在  
+									<a target="_blank" href="/d/<%=item.response  %>?noticeid=<%=item._id %>"><%=item.where.topic %></a> 回复了你
+								</li>
+								<% } %>
+
+								<% if( notices.length == 0 ){ %>
+								<li>
+									<span>没有最新通知...</span>
+								</li>
+								<% } %>
+							</ul>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<% include public-left.ejs %>
+
+	</div>
+
+
+	<script type="text/javascript" src="/public/js/lib/jquery-1.6.3.min.js"></script>
+	<script type="text/javascript" src="/public/js/lib/we.min.js"></script>
+	<script type="text/javascript" src="/public/js/we.top.min.js"></script>
+	<script type="text/javascript">
+		WE.top.init();
+	</script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title><%=user.name%> - Vchat</title>
+
+	<link rel="stylesheet" type="text/css" href="/public/css/common.css"/>
+	<link rel="stylesheet" type="text/css" href="/public/css/personal.css"/>
+
+	<% var pageName = "bindEmail"; %>
+
+</head>
+<body>
+
+	<!-- top {user:{user}} -->
+	<% include ../common/top.ejs %>
+
+	
+	<div class="wrap">
+		<div class="main">
+			<div class="main-inner">
+				<div class="main-header">
+					<h1>绑定邮箱</h1>
+				</div>	
+
+				<div class="main-content">
+					
+					<div class="bind-mail">
+						<div class="tips">体验vchat.co的时候，系统会为你快速创建一个匿名用户，绑定邮箱你可以在其他设备使用该帐号</div>
+
+						<% if( /^[\w._\-]+@[\w_\-]+\.\w+$/.test(user.mail) ){ %>
+
+							<p style="padding: 30px 0px">已经绑定该邮箱 : <%=user.mail %></p>
+						<% }else{ %>
+
+							<div class="edit">
+
+								<form class="vert-form form-middle">
+									<div class="error-tips hidden" id="bindMail-tip">
+										Error
+									</div>
+									<div class="input-box">
+										<i class="icon-email"></i>
+										<input autofocus id="bindMail-input" placeholder="登录邮箱">
+									</div>
+
+									<div class="input-box">
+										<i class="icon-lock"></i>
+										<input autofocus id="pwd-input" placeholder="登录密码">
+									</div>
+									
+									
+									<button type="button" id="bindMail-submit" class="btn form-btn strip-btn">提交</button>
+								</form>
+							</div>
+						<% } %>
+						
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<% include public-left.ejs %>
+	</div>
+
+	<script type="text/javascript" src="/public/js/lib/jquery-1.6.3.min.js"></script>
+	<script type="text/javascript" src="/public/js/lib/we.min.js"></script>
+	<script type="text/javascript" src="/public/js/we.top.min.js"></script>
+	<script type="text/javascript" src="/public/js/we.user.min.js"></script>
+	<script type="text/javascript">
+		WE.userPage.bindMail.init();
+		WE.top.init();
+	</script>
+</body>
+</html>

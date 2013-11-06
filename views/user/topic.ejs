@@ -1,0 +1,104 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title><%=user.name%> - Vchat</title>
+
+	<link rel="stylesheet" type="text/css" href="/public/css/common.css"/>
+	<link rel="stylesheet" type="text/css" href="/public/css/personal.css"/>
+
+	<% var pageName = "topic"; %>
+
+	<script type="text/javascript">
+
+		var creates = <%- JSON.stringify(creates) %>
+		var joins = <%- JSON.stringify(joins) %>
+
+	</script>
+
+</head>
+<body>
+
+	<!-- top {user:{user}} -->
+	<% include ../common/top.ejs %>
+	
+	<div class="wrap">
+		<div class="main">
+			<div class="main-inner">
+				<div class="main-header">
+					<h1>话题</h1>
+				</div>	
+
+				<div class="main-content">
+					
+					<div class="topics">
+						<div class="create block">
+							<div class="title">创建过的话题</div>
+							<div class="content">
+								<ul>
+									<%
+										var item = null;
+										for(var i=creates.length-1; i>0; i--){
+											item = creates[i];
+
+									%>
+									<li>
+										<a target="_blank" title="<%=item.topic%>" href="/t/<%=item.name ? item.name : item.id %>">
+											<i class="icon-chat"></i>
+											<%= tool.cutOff(item.topic, 70)%>
+										</a>
+									</li>
+									<% } %>
+
+									<% if( creates.length == 0 ){ %>
+									<li>
+										<span>No topics...</span>
+									</li>
+									<% } %>
+								</ul>
+							</div>
+						</div>
+						<div class="involved block">
+							<div class="title">参与过的话题</div>
+							<div class="content">
+								<ul>
+									<%
+										var item = null;
+										for(var i=0; i<joins.length; i++){
+											item = joins[i];
+
+									%>
+									<li>
+										<a target="_blank" title="<%=item.topic%>" href="/t/<%=item.name ? item.name : item.id %>">
+											<i class="icon-chat"></i>
+											<%= tool.cutOff(item.topic, 70)%>
+										</a>
+									</li>
+									<% } %>
+
+									<% if( joins.length == 0 ){ %>
+									<li>
+										<span>No topics...</span>
+									</li>
+									<% } %>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<% include public-left.ejs %>
+
+		
+	</div>
+
+	<script type="text/javascript" src="/public/js/lib/jquery-1.6.3.min.js"></script>
+	<script type="text/javascript" src="/public/js/lib/we.min.js"></script>
+	<script type="text/javascript" src="/public/js/we.top.min.js"></script>
+	<script type="text/javascript">
+		WE.top.init();
+	</script>
+</body>
+</html>

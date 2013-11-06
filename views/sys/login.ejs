@@ -1,85 +1,113 @@
 <!DOCTYPE HTML>
-<html lang="en-US">
+<html>
 <head>
 	<meta charset="UTF-8">
-	<title>注册 - Vchat</title>
-	<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" />
-	<link rel="stylesheet" href="/css/all.css" />
-	<link rel="stylesheet" href="/css/Stip.css" />
-	<script type="text/javascript" src="/js/jquery-1.6.js"></script>
-	<script type="text/javascript" src="/js/we.min.js"></script>
-	<script type="text/javascript" src="/js/Stip.js"></script>
-	<script type="text/javascript" src="/js/Checkform.js"></script>
+	<title>登录 - Vchat</title>
+<!-- 	<link rel="stylesheet" href="/public/bootstrap/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="/public/css/all.css" /> -->
+	<link rel="stylesheet" href="/public/css/Stip.css" />
+	<style type="text/css">
+		/*.oauth-btn:link{width:129px;display:inline-block;height:29px;
+			background-image:url(/public/images/oauth_login.png);
+		}
+		.oauth-btn:hover,.oauth-btn{background-color:transparent;}
+		.oauth-btn span{margin-left:45px;line-height:26px;color:#fff;}
+
+		.oauth-sina{background-position:-129px 0;}
+		.oauth-sina:hover{background-position:-129px -29px;}
+
+		.oauth-qq{background-position:0 0;}
+		.oauth-qq:hover{background-position:0 -29px;}*/
+		html,body{background:#d5d8dd;}
+			.main-login h1{text-align:center;font-size:48px;}
+			.main-login h1 a{display:inline-block;color:#4d4d4e}
+			.main-login .introduce{text-align:center;color: #a3a4a5}
+		.login-header{padding: 40px 0px;border-bottom:#b2b6b9 solid 1px;
+			box-shadow: 0 1px 0 rgba(255,255,255,1);
+			-web-box-shadow:  0 1px 0 rgba(255,255,255,1);
+			-moz-box-shadow:  0 1px 0 rgba(255,255,255,1);
+			-o-box-shadow:  0 1px 0 rgba(255,255,255,1);
+		}
+		.login-content{padding-top:35px;}
+		.login-content .status-tips{width:297px;text-align:center;background:rgb(246, 246, 126);
+				font-size: 13px;padding:10px 5px;color: rgb(131, 22, 22);margin-bottom:20px;}
+
+	</style>
+
+	<link rel="stylesheet" type="text/css" href="/public/css/common.css"/>
+
+	<script type="text/javascript" src="/public/js/lib/jquery-1.6.3.min.js"></script>
+	<script type="text/javascript" src="/public/js/lib/we.min.js"></script>
+	<script type="text/javascript" src="/public/js/lib/Stip.js"></script>
+	<script type="text/javascript" src="/public/js/lib/Checkform.js"></script>
+	<script type="text/javascript" src="/public/js/we.top.min.js"></script>
+	<script type="text/javascript">
+		var USER = <%- JSON.stringify(user)%>;
+	</script>
 </head>
 <body>
 	<!-- top {user:{user}} -->
 	<% include ../common/top.ejs %>
 
-	<div class="container">
-		<div class="head">
-			<h1>Vchat</h1>
-			<p class="subtitle" > --- 基于主题的多人对话</p>
-		</div>
-		<div class="row">
-			<div class="span6">
-				<div class="create">
-					<h3>登陆</h3>
-					<form action="#" method="post" id="login" >
-						<% if( code  != 0 ){ %>
-							<div class="alert"><%= msg %></div>
-						<% } %>
-						<ul class="reset">
-							<li>
-								<label for="email">Email</label>
-								<input type="text" id="email" name="email" placeholder="Email">
-							</li>
-							<li>
-								<label for="pwd">密码</label>
-								<input type="password" id="pwd" name="pwd" placeholder="password">
-							</li>
-							
-							<li><input type="submit" class="btn" value="登陆" /></li>
-						</ul>
-					</form>
-				</div>
+
+	<div class="main">
+
+
+		<div class="main-login">
+
+			<div class="login-header">
+				<h1>
+					<a href="/home">vchat.co</a>	
+				</h1>
+				<p class="introduce">便捷的多人讨论平台</p>
 			</div>
-			<div class="span5">
-				<div class="into">
-					<h3>还没有账户?</h3>
-					<div> <a href="/sys/reg">注册账户</a> </div>
-				</div>
+
+			<div class="login-content">
+				<% if( status.code  != 0 ){ %>
+					<div class="status-tips set-middle"><%= status.msg %></div>
+				<% } %>
+				<form class="vert-form form-middle set-middle" action="/login" method="post" id="login">
+					<input type="hidden" name="referer" value="<%=referer%>" >
+					<div class="input-box">
+						<i class="icon-email"></i>
+						<input autofocus placeholder="邮箱地址" type="text" name="email" id="email" maxlength="100">
+					</div>
+					<div class="input-box">
+						<i class="icon-lock"></i>
+						<input placeholder="密码" id="pwd" type="password" name="pwd" maxlength="50">
+					</div>
+					
+					<button type="submit" class="btn form-btn strip-btn">登 录</button>
+					<a class="form-link tips" href="/reg">创建个人帐户</a>
+				</form>
 			</div>
-		</div>
 		
-	</div>
-	<div class="footer">
-		<div class="container">
-		<p><a href="/about">about</a></p>	
 		</div>
 	</div>
+	
+	<% include ../common/footer.ejs %>
 	<script type="text/javascript">
+
+		WE.top.init();
 		var json = [
 			{
 				id:"email",
-				email:{rule:true,msg:"请添加正确的邮箱格式"}
+				email:{rule:true,msg:"填写正确的邮箱"}
 
 			},
 			{
 				id:"pwd",
-				minLength:{rule:6,msg:"密码长度不够"},
-				maxLength:{rule:16,msg:"密码不正确"}
-
+				minLength:{rule:6,msg:"密码长度不能少于6位"}
 			}
 		];
 
 		var regForm = new  CheckForm(json);
 
-		$('#login').click(function(){
-			if( regForm.okay() ){
-				return  true;
-			};
-			return false;
+		$('#login').submit(function(){
+			 return regForm.okay();
 		});
+
 	</script>
+	
 </body>
 </html>

@@ -1,0 +1,168 @@
+personal page:
+	
+	1. the topics which i build
+
+	2. the topics which i join in
+
+	3. edit nickname
+
+	4. edit my introduce
+
+	5. notice system
+
+
+
+
+	branch:
+
+		1 . Home
+
+				* 创建话题
+				* 一句话描述,昵称修改,修改头像可选
+				* Recently Topics
+
+		2 . Notice
+
+				* 所有
+				* 未读
+				* 已读
+
+		3. Topics
+
+				* build Topics
+				* 去过的话题
+
+
+
+vchat.co/user/home       views/user/home.ejs
+output = {
+	
+	user:User,
+	contacts:[Contact,Contact,...]//30
+	joinTopics:[Room,Room,...]//30
+}
+
+
+vchat.co/user/notice[?status=[unread/read]] //default unread     views/user/notice.ejs
+output = {
+	
+	user:User,
+	status:"String",
+	notices:[Notice,Notice,...]
+
+}
+
+vchat.co/user/topic      views/user/topic.ejs
+output = {
+	
+	user:User,
+	creates:[Room,Room,...],
+	joins:[Room,Room,...]
+
+}
+
+vchat.co/user/bind-mail   views/user/bind-mail.ejs
+output = {
+
+	user:User
+}
+
+vchat.co/user/edit-avatar views/user/edit-avastar.ejs
+output = {
+
+	user:User
+}
+
+vchat.co/user/edit-info   views/user/edit-info.ejs
+output = {
+
+	user:User
+}
+
+vchat.co/sys/create-topic   views/sys/create-topic.ejs
+output = {
+	user:User
+}
+
+vchat.co/recommend
+output = {
+	
+	user:User,
+	rooms:[Room, Room]
+}
+
+vchat.co/recently
+output = {
+	
+	user:User,
+	rooms:[Room, Room]
+}
+
+
+vchat.co/user/kyes(MD5_KEY) vchat.co/user/md5_key
+output = {
+	
+	user:User,
+	recently:[Log, Log,....],
+	accessUser:Room,
+	tool: //工具
+}
+
+
+
+pages:
+	
+	1. url:user/user._id 用户页面
+
+	2. 话题创建
+
+	3. 信息单页
+
+	update
+
+	1. chat页面修改话题信息,房间加密,邀请好友
+
+	2. 首页
+
+	3. 在线列表头像始终在最上面
+
+
+
+后台:
+	
+	1. 注册发email,绑定email发email
+
+	2. 联系人
+
+	3. logo
+
+	4. 去咖啡厅拍照		
+
+
+
+*******创建话题*********
+
+	topic 话题的标题
+
+		  可选 [话题的描述]
+
+	加密
+
+	邀请最近联系人
+
+
+
+
+
+
+1:与小伙伴们谈心
+	小伙伴们最近可好？聊聊彼此最近的工作、生活、未来计划。
+
+2:讨论明天的活动行程
+	如果你想组织朋友们去深圳湾踏青，把他们邀请到vchat.co讨论一下活动行程吧。
+
+3:任何好友与非好友的对话
+	vchat.co在于创造更便捷的多人对话，不需要注册，不需要好友关系，无论什么时候一个链接即可与任何人建立起安全的对话空间。
+
+
+

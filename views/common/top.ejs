@@ -1,31 +1,105 @@
-<div class="top">
-	<%if(user){%>
-	<ul class="top-nav f-r">
-		<li class="drop-down">
-			<a href="#" class="account" >
-				<span><%=user.name || user.mail%>的帐号</span>
-				<span class="arrow"></span>
+<header>
+	<div class="pull-left header-links links-dot hidden">
+		<a class="home" href="/">vchat.co</a>
+		<a class="dotted">...</a>
+	</div>
+	<div class="pull-left header-links links-show">
+		<a class="home" href="/">vchat.co</a>
+		<% var pageName = typeof page == "undefined" ? "none" : page; %>
+		<div class="search-box" id="search-box">
+			<form method="get" action="/search" id="search-form">
+				<input autocomplete="off" disableautocomplete placeholder="Search topics" name="key" maxlength="40" class="search-input">
+			</form>
+			<div class="result-box hidden">
+				<a class="loading hidden" style="text-algin:center">
+					<img src="/public/images/loadinfo.net.gif">...
+				</a>
+				<div class="results">
+
+				</div>
+			</div>
+
+		</div>
+		<div class="menu-links">
+			<a href="/recommend" <% if( pageName == "recommend"){ %> class="select" <% } %>>推荐话题</a>
+		</div>
+	</div>
+	<% if(user){ %>
+	<div class="pull-right header-menu">
+
+		<a id="notice-sound" class="notice-sound" title="点击关闭声音提示">
+				<i class="icon-loading js-loading"></i>
+				<i class="icon-offnoticesound hidden js-boot"></i>
 			</a>
-			<div class="drop-down-items">
+		<div class="notice-box" id="notice-box">
+			
+			<a href="/user/notice" class="bell">
+				<i class="icon-noticedefault"></i>
+			</a>
+			<div class="notice-list hidden">
+				<div class="content">
+					<!-- <p class="no-notice">No recent new notice...</p> -->
+					<p style="text-align:center" class="no-notice">
+						<img src="/public/images/loadinfo.net.gif">
+					</p>
+				</div>
+				<div class="link">
+					<a href="/user/notice">查看所有通知消息</a>
+				</div>
+			</div>
+		</div>
+		<div class="account-box">
+
+			<a class="nick-name" href="/user/home">
+				<img src="<%=user.avatar%>">
+				<%=user.name =="" ? "(未设置昵称)": user.name %>
+			</a>
+			<div class="drop-list">
 				<ul>
-					<li><a href="javascript:;" id="username" >修改昵称</a></li>
-					<%if(/^\d+$/.test(user.mail)){%>
-						<li><a href="javascript:;" id="bindmail" >绑定Email</a></li> 
-					<%}%>
-					<li><a href="javascript:;" id="chatme" >我参与过的对话</a></li>
-					<li><a href="/sys/login">切换用户</a></li>
+					<li>
+						<a href="/user/home">
+							个人首页
+						</a>
+					</li>
+					<li>
+						<a href="/user/edit-avatar">
+							修改头像
+						</a>
+					</li>
+					<li>
+						<a href="/user/edit-info">
+							修改昵称
+						</a>
+					</li>
+				
+					<% if( !/^[\w._\-]+@[\w_\-]+\.\w+$/.test(user.mail) ){ %>
+					<li>
+						<a href="/user/bind-mail">		
+							绑定邮箱
+						</a>
+					</li>
+					<% } %>
+
+					<li>
+						<a href="/create-topic">
+							创建话题
+						</a>
+					</li>
+
+
+					<li>
+						<a class="login-out" href="/out">	
+							退出
+						</a>
+					</li>
 				</ul>
 			</div>
-		</li>
-	</ul>
-	<%}else{%>
-	<ul class="top-nav f-r">
-		<li><a href="/sys/login">登录</a>/</li>
-		<li><a href="/sys/reg">注册</a></li>
-	</ul>
-	<%}%>
-	<ul class="top-nav">
-		<li><a href="/">Vchat</a></li>
-		<li><a href="/">创建对话</a></li>
-	</ul>
-</div>
+		</div>
+	</div>
+	<% }else{ %>
+	<div class="pull-right header-unlogin">
+		<a href="/reg">创建帐户</a>
+		<a href="/login">登录</a>
+	</div>
+	<% } %>
+</header>

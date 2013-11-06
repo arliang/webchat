@@ -1,0 +1,122 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title><%=user.name%> - Vchat</title>
+
+	<link rel="stylesheet" type="text/css" href="/public/css/common.css"/>
+	<link rel="stylesheet" type="text/css" href="/public/css/personal.css"/>
+
+	
+	<script type="text/javascript">
+
+		var USER = <%- JSON.stringify(user) %>;
+		var contacts = <%- JSON.stringify(contacts)%>;
+		var joinTopics = <%- JSON.stringify(joinTopics)%>;
+
+	</script>
+
+	<% var pageName = "home"; %>
+
+</head>
+<body>
+
+	<!-- top {user:{user}} -->
+	<% include ../common/top.ejs %>
+	
+	<div class="wrap">
+		<div class="main">
+			<div class="main-inner">
+				<div class="main-header">
+
+					<div class="user-info clearfix">
+						<div class="avatar pull-left">
+							<a href="/user/edit-avatar"><img alt="<%=user.name %>" title="edit my avatar" src="<%=user.avatar %>"></a>
+						</div>
+						<div class="base pull-left">
+							<a href="/user/<%=user._id%>" title="<%=user.name == ""? "(未设置昵称)":user.name %>'s personal page" class="name"><%=user.name == ""? "(未设置昵称)":user.name %></a>
+							<span class="des">
+								<%-tool.revertHtmlTag(user.summary)%>
+								<%if(!user.summary){%>
+									( 介绍一下自己 )
+								<%}%>
+							</span>
+						</div>
+
+
+
+						<!-- <div class="pull-right">
+							<a class="btn btn-white" href="/">personal page</a>
+						</div> -->
+					</div>
+					
+					<% if( !/^[\w._\-]+@[\w_\-]+\.\w+$/.test(user.mail) ){ %>
+					<div class="bind-email-tips">
+						如果想在其他设备继续使用该帐号，请绑定邮箱&nbsp;&nbsp;<a href="bind-mail">绑定我的邮箱</a>
+					</div>
+					<style type="text/css">
+					.main-header{height: auto;}
+					</style>
+					<% } %>
+				</div>	
+
+				<div class="main-content">
+
+					<div class="recent-topic">
+						<div class="title">
+							最近话题
+						</div>
+
+						<div class="content">
+							
+							<ul>
+								<%
+									var item = null;
+									for(var i=0; i<joinTopics.length; i++){
+										item = joinTopics[i];
+
+								%>
+								<li>
+									<a href="/t/<%=item.name ? item.name : item.id %>" title="<%=item.topic%>"><i class="icon-chat"></i><%= tool.cutOff(item.topic, 70)%></a>
+								</li>
+								<% } %>
+
+								<% if( joinTopics.length == 0 ){ %>
+								<li>
+									<span>No topics...</span>
+								</li>
+								<% } %>
+							</ul>
+						</div>
+
+
+					</div>
+					<div class="recent-user">
+						<div class="title">
+							<!-- <i class="icon-users"></i> -->
+							最近联系人
+						</div>
+						<div class="content">
+							<ul class="clearfix" id="contacts">
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<% include public-left.ejs %>
+
+	</div>
+
+
+	<script type="text/javascript" src="/public/js/lib/jquery-1.6.3.min.js"></script>
+	<script type="text/javascript" src="/public/js/lib/we.min.js"></script>
+	<script type="text/javascript" src="/public/js/we.top.min.js"></script>
+	<script type="text/javascript" src="/public/js/we.user.min.js"></script>
+	<script type="text/javascript">
+		WE.userPage.home.init();
+		WE.top.init();
+	</script>
+</body>
+</html>

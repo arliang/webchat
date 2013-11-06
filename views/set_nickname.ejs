@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>设置昵称 - Vchat</title>
+	<link rel="stylesheet" type="text/css" href="/public/css/common.css"/>
+	<link rel="stylesheet" type="text/css" href="/public/css/chat_new.css"/>
+</head>
+<body>
+
+	<!-- top {user:{user}} -->
+	<% include common/top.ejs %>
+
+	<div class="wall-room wall-setname">
+
+		<div class="main ">
+			<div class="line">
+				<div class="topic-title">话题 :</div>
+				<div class="topic-content"><%=room.topic%></div>
+				<div class="login-input">
+					<div class="nickname-input" id="login-nickname-wall">
+						<img class="loading" src="/public/images/loadinfo.net.gif">
+						<img src="<%=user.avatar %>">
+						<input type="text" autofocus placeholder="输入昵称开始话题"  maxlength="50" id="login-nickname-input" value="<%=user.name %>">
+
+						<a class="login-btn" id="login-nickname-btn" href="javascript:;">
+							<i class="icon-go"></i>
+							<i class="icon-loading hidden"></i>
+						</a>
+					</div>
+				</div>
+				<div class="account-btn">
+					<a class="btn" href="/login?referer=/t/<%=room.id %>" id="account-login-btn">
+						<i class="icon-user"></i>
+						使用我的帐号登录
+					</a>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+
+	<script type="text/javascript" src="/public/js/lib/jquery-1.6.3.min.js"></script>
+	<script type="text/javascript" src="/public/js/lib/we.min.js"></script>
+	<script type="text/javascript" src="/public/js/we.chat.min.js"></script>
+	<script type="text/javascript" src="/public/js/we.top.min.js"></script>
+
+
+	<script type="text/javascript">
+
+		WE.top.init();
+		WE.pageChat.login.init();
+
+	</script>
+
+</body>
+</html>
